@@ -4,11 +4,14 @@ import Register from './login/login';
 import Home from './homepage/homepage';
 
 const Router=()=>{
+   
     return(
         <BrowserRouter>
         <Routes>
             <Route path='/' element={<Register/>}/>
             <Route path='/home' element={<Home/>}/>
+            <Route path="/users/login" element={<Register/>}/>
+               
         </Routes>
         </BrowserRouter>
     )
