@@ -18,24 +18,24 @@ useEffect(() => {
       user.getIdToken().then(newToken => {
         token = newToken;
   
-        // Fetch admin data from Firestore (assuming 'admins' is your collection name)
+        // Fetch admin data from Firestore 
         const adminsCollection = collection(db,'admin');
-        const userEmail = user.email; // Assuming email is used as the identifier
+        const userEmail = user.email; 
   
         const queryAdmin = query(adminsCollection, where('email', '==', userEmail));
         console.log(userEmail)
         getDocs(queryAdmin)
           .then(querySnapshot => {
-            if (!querySnapshot.empty) {
+            if (!querySnapshot.empty) {//If admin, generate link
               const docSnapshot = querySnapshot.docs[0]; 
   
-              // Update the document data with the new token
+              
               const docRef = doc(db,'admin', docSnapshot.id);
               setIsAdmin(true)
               const loginPageUrl = `${window.location.origin}/users/login`;
               const generatedShareableLink = `${loginPageUrl}?token=${token}`;
               setShareableLink(generatedShareableLink);
-              return updateDoc(docRef, { token: newToken }); // Returns a promise for chaining
+              return updateDoc(docRef, { token: newToken }); //Update token
             } else {
               setIsAdmin(false);
             }
